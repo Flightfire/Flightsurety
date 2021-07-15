@@ -24,7 +24,7 @@ contract FlightSuretyApp {
     uint8 private constant STATUS_CODE_LATE_TECHNICAL = 40;
     uint8 private constant STATUS_CODE_LATE_OTHER = 50;
 
-    address private contractOwner;          // Account used to deploy contract
+    address private contractOwner; // Account used to deploy contract
 
     struct Flight {
         bool isRegistered;
@@ -34,7 +34,6 @@ contract FlightSuretyApp {
     }
     mapping(bytes32 => Flight) private flights;
 
- 
     /********************************************************************************************/
     /*                                       FUNCTION MODIFIERS                                 */
     /********************************************************************************************/
@@ -117,8 +116,11 @@ contract FlightSuretyApp {
         internal
         pure
     {
+    //1. If flight was on time, determine action.
+    //2. If flight was status 20 (delayed due to airline,)
+        //1. Look for passengers that have insurance.
+        //2. Start payment process. 
     }
-
 
     // Generate a request for oracles to fetch flight information
     function fetchFlightStatus(
@@ -137,10 +139,6 @@ contract FlightSuretyApp {
         ResponseInfo storage info = oracleResponses[key];
         info.requester = msg.sender;
         info.isOpen = true;
-        // oracleResponses[key] = ResponseInfo({
-        //     requester: msg.sender,
-        //     isOpen: true
-        // });
 
         emit OracleRequest(index, airline, flight, timestamp);
     } 
@@ -149,7 +147,7 @@ contract FlightSuretyApp {
 // region ORACLE MANAGEMENT
 
     // Incremented to add pseudo-randomness at various points
-    uint8 private nonce = 0;    
+    uint8 private nonce = 0; 
 
     // Fee to be paid when registering oracle
     uint256 public constant REGISTRATION_FEE = 1 ether;

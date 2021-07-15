@@ -18,7 +18,8 @@ export default class Contract {
         this.web3.eth.getAccounts((error, accts) => {
            
             this.owner = accts[0];
-
+            console.log("Connected: " + web3.isConnected);
+            console.log(accts[0])
             let counter = 1;
             
             while(this.airlines.length < 5) {
@@ -35,6 +36,7 @@ export default class Contract {
 
     isOperational(callback) {
        let self = this;
+       console.log("isOperational Called")
        self.flightSuretyApp.methods
             .isOperational()
             .call({ from: self.owner}, callback);
@@ -42,6 +44,7 @@ export default class Contract {
 
     fetchFlightStatus(flight, callback) {
         let self = this;
+        console.log('fetchFlightStatus Called')
         let payload = {
             airline: self.airlines[0],
             flight: flight,
